@@ -17,7 +17,7 @@ docker pull yestemirova/reddit-clone-flask
 ### Запуск контейнера
 Создайте контейнер из изображения.
 ```
-$ docker run --name my-container -d -p 8080:8080 lvthillo/python-flask-docker
+$ docker run -d -p 8080:8080 yestemirova/reddit-clone-flask
 ```
 
 Теперь вы можете перейти по ссылке http://localhost:8080 в браузере
