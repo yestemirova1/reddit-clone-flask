@@ -73,8 +73,10 @@ def time_ago(timestamp):
 
     return timeago.format(date, now)
 
+
 def is_str(obj):
     return isinstance(obj, str)
+
 
 def short_url(str):
     s = str[8:24] + '...'
@@ -83,7 +85,7 @@ def short_url(str):
 
 def get_subreddit_icon(subreddit):
 
-    s = '/r/'+ subreddit +'/about/'
+    s = '/r/' + subreddit + '/about/'
     response = makeGetRequest(s)
 
     if response.status_code == 200:
@@ -91,9 +93,11 @@ def get_subreddit_icon(subreddit):
 
     return icon
 
+
 def format_date(date):
     ts = dt.utcfromtimestamp(date)
     return (ts.strftime('%B %d, %Y'))
+
 
 @app.route("/", methods=["GET"])
 def index():
@@ -127,7 +131,7 @@ def profile():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form['query']
-    q = '/search/?q='+query
+    q = '/search/?q=' + query
     response = makeGetRequest(q)
     user = get_user()
 
@@ -137,14 +141,10 @@ def search():
     return render_template('search_results.html', results=results, q=query, human_format=human_format, time_ago=time_ago, endsw=endsw, get_subreddit_icon=get_subreddit_icon, user=user)
 
 
-
 @app.route("/sign_in")
 def sign_in():
     return render_template('sign_in.html')
 
-@app.route("/index2")
-def index2():
-    return render_template('index2.html')
 
 @app.route("/history")
 def history():
@@ -181,8 +181,9 @@ def history():
 
 @app.route("/r/<subreddit>/comments/<id>/<title>/")
 def comments(subreddit, id, title):
-
-    response = makeGetRequest('/r/'+ subreddit +'/comments/'+ id +'/'+ title +'/')
+    response = makeGetRequest(
+        '/r/' + subreddit + '/comments/' + id + '/' + title + '/')
+    user = get_user()
 
     if response.status_code == 200:
         data = response.json()
@@ -190,4 +191,7 @@ def comments(subreddit, id, title):
     d_post = data[0]['data']['children'][0]['data']
     d_comments = data[1]['data']['children']
 
-    return render_template("comments1.html", d_post=d_post, d_comments=d_comments, is_str=is_str)
+    return render_template("comments1.html", d_post=d_post, d_comments=d_comments,
+                           is_str=is_str, user=user, human_format=human_format,
+                           get_subreddit_icon=get_subreddit_icon, time_ago=time_ago,
+                           endsw=endsw)
