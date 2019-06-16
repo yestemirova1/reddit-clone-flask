@@ -1,5 +1,5 @@
 # reddit-clone-flask
-Аналог reddit.com написанный на python 3 с использованием Flask framework
+Аналог reddit.com написанный на python 3 с использованием фреймворка Flask
 
 ### Создания образа Docker
 Создайте образ Docker, клонировав репозиторий Git.
