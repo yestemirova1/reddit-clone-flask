@@ -1,0 +1,709 @@
+{% extends "base.html" %}
+
+{% block title %}history for {{ user['name'] }}{% endblock %}
+
+{% block main %}
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-submitted" role="tab" aria-controls="pills-submitted" aria-selected="true">Submitted posts</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-comments" role="tab" aria-controls="pills-comments" aria-selected="false">Comments</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-upvoted" role="tab" aria-controls="pills-upvoted" aria-selected="false">Upvoted</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-downvoted" role="tab" aria-controls="pills-downvoted" aria-selected="true">Downvoted</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-hidden" role="tab" aria-controls="pills-hidden" aria-selected="false">Hidden</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-saved" role="tab" aria-controls="pills-saved" aria-selected="false">Saved</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-gilded" role="tab" aria-controls="pills-gilded" aria-selected="false">Gilded</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  {% if data|length %}
+  <div class="tab-pane fade show" id="pills-submitted" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in data %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['link_url'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ short_url(i['data']['link_url']) }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade show active" id="pills-submitted" role="tabpanel" aria-labelledby="pills-home-tab">No posts</div>
+  {% endif %}
+  {% if d1|length %}
+  <div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d1 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['link_url'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ short_url(i['data']['link_url']) }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-comments" role="tabpanel" aria-labelledby="pills-profile-tab">No comments</div>
+  {% endif %}
+  {% if d2|length %}
+  <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d2 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['permalink'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ i['data']['permalink'] }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                              <div class="message-5 " style="max-height:512px;margin:0 auto">
+                                <div>
+                                  <img class="message-img media-element" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-upvoted" role="tabpanel" aria-labelledby="pills-contact-tab">No upvoted posts</div>
+  {% endif %}
+  {% if d3|length %}
+  <div class="tab-pane fade" id="pills-downvoted" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d3 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['permalink'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ i['data']['permalink'] }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                              <div class="message-5 " style="max-height:512px;margin:0 auto">
+                                <div>
+                                  <img class="message-img media-element" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-downvoted" role="tabpanel" aria-labelledby="pills-profile-tab">No downvoted posts</div>
+  {% endif %}
+  {% if d4|length %}
+  <div class="tab-pane fade" id="pills-hidden" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d4 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['permalink'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ i['data']['permalink'] }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                              <div class="message-5 " style="max-height:512px;margin:0 auto">
+                                <div>
+                                  <img class="message-img media-element" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-hidden" role="tabpanel" aria-labelledby="pills-contact-tab">No hidden posts</div>
+  {% endif %}
+  {% if d5|length %}
+  <div class="tab-pane fade" id="pills-saved" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d5 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['link_url'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ i['data']['link_url'] }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                              <div class="message-5 " style="max-height:512px;margin:0 auto">
+                                <div>
+                                  <img class="message-img media-element" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-saved" role="tabpanel" aria-labelledby="pills-profile-tab">No saved posts</div>
+  {% endif %}
+  {% if d6|length %}
+  <div class="tab-pane fade" id="pills-gilded" role="tabpanel" aria-labelledby="pills-contact-tab">
+    <div class="pr1" style="max-width: 100%;">
+      <div class="pr2" style="width: 750px;">
+        <div>
+          <div class="pr3">
+            {% for i in d6 %}
+            <div>
+              <div>
+                <div>
+                  <div class="pr4 pr5" id="t3_c0l99f" tabindex="-1">
+                    <div class="pr6">
+                      <div class="pr7">
+                        <i class="icon icon-comment pr8 pr9"></i>
+                        <div class="pr10">
+                          <a class="pr11" data-click-id="user" href="{{ user['subreddit']['url'] }}">
+                            {{ user['name'] }}
+                          </a> commented on
+                          <div class="pr12">
+                            <div class="pr13 pr17">
+                              <span class="pr14">
+                                <a data-click-id="body" class="pr19" href="{{ i['data']['permalink'] }}">
+                                  <h2 class="p15 pr16">{{ i['data']['link_title'] }}</h2>
+                                </a>
+                              </span>
+                              <a class="pr18 pr20" href="{{ i['data']['link_url'] }}" size="3" rel="noopener noreferrer" target="_blank">{{ i['data']['link_url'] }}</a>
+                            </div>
+                          </div>
+                          <span class="pr21 pr22 pr23" role="presentation">•</span>
+                          <div class="pr24 pr25">
+                            <div class="pr26">
+                              <a class="pr27" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}/">
+                                {{ i['data']['subreddit_name_prefixed'] }}
+                              </a>
+                            </div>
+                            <span class="pr21 pr22 pr28" role="presentation">•</span>
+                            <span class="pr29">Posted by</span>
+                            <div class="pr30">
+                              <a class="pr31 pr32 pr33" href="/user/{{ i['data']['link_author'] }}/">u/{{ i['data']['link_author'] }}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="pr34">
+                    <div class="pr35">
+                      <div class="pr36"></div>
+                      <div class="pr37">
+                        <div class="pr38">
+                          <div class="pr39 pr40">
+                            <div class="pr30">
+                              <a class="pr32" href="{{ user['subreddit']['url'] }}">
+                                {{ user['name'] }}
+                              </a>
+                            </div>
+                            <span class="pr41 pr42">2 points</span>
+                            <span class="pr41 pr42"> · </span>
+                            <a class="pr43" href="{{ i['data']['permalink'] }}" rel="nofollow" target="_blank">
+                              <span>{{ time_ago(i['data']['created']) }}</span>
+                            </a>
+                            <div class="pr44"></div>
+                          </div>
+                          <div>
+                            <div class="pr45">
+                              <div class="pr46">
+                                <p class="pr47">{{ i['data']['body'] }}</p>
+                              </div>
+                              <div class="message-5 " style="max-height:512px;margin:0 auto">
+                                <div>
+                                  <img class="message-img media-element" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
+                                </div>
+                              </div>
+                            </div>
+                            <div>
+                              <div class="pr48">
+                                <button class="pr49">Reply</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="tab-pane fade" id="pills-gilded" role="tabpanel" aria-labelledby="pills-contact-tab">there doesn't seem to be anything here</div>
+  {% endif %}
+</div>
+
+{% endblock %}

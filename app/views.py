@@ -142,6 +142,42 @@ def search():
 def sign_in():
     return render_template('sign_in.html')
 
+@app.route("/index2")
+def index2():
+    return render_template('index2.html')
+
+@app.route("/history")
+def history():
+    user = get_user()
+    s = '/user/' + user['name'] + '/submitted'
+    s1 = '/user/' + user['name'] + '/comments'
+    s2 = '/user/' + user['name'] + '/upvoted'
+    s3 = '/user/' + user['name'] + '/downvoted'
+    s4 = '/user/' + user['name'] + '/hidden'
+    s5 = '/user/' + user['name'] + '/saved'
+    s6 = '/user/' + user['name'] + '/gilded'
+
+    response = makeGetRequest(s)
+    r1 = makeGetRequest(s1)
+    r2 = makeGetRequest(s2)
+    r3 = makeGetRequest(s3)
+    r4 = makeGetRequest(s4)
+    r5 = makeGetRequest(s5)
+    r6 = makeGetRequest(s6)
+
+    data = response.json()['data']['children']
+    d1 = r1.json()['data']['children']
+    d2 = r2.json()['data']['children']
+    d3 = r3.json()['data']['children']
+    d4 = r4.json()['data']['children']
+    d5 = r5.json()['data']['children']
+    d6 = r6.json()['data']['children']
+
+    return render_template("history.html", user=user, data=data,
+                           d1=d1, d2=d2, d3=d3, d4=d4, d5=d5, d6=d6,
+                           time_ago=time_ago, short_url=short_url,
+                           format_date=format_date)
+
 
 @app.route("/r/<subreddit>/comments/<id>/<title>/")
 def comments(subreddit, id, title):

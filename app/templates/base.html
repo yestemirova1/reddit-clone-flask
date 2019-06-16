@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,14 +13,19 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
-  <!-- Custom JS -->
-  <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-
   <!-- JS -->
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+  <!-- Custom JS -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <style>
+    .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+      color: #fff;
+      background-color: rgb(0, 121, 211);
+    }
+  </style>
   <title>{% block title %}{% endblock %}</title>
 </head>
 
@@ -43,13 +48,15 @@
         </li>
       </ul>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <div>
-              <a href="/profile" class="navbar-right">
-                <img width="24" height="24" style="border-radius: 4px;float: left; margin-top: 7px; margin-right: 4px;" src="{{ user['subreddit']['icon_img'] }}">
-              </a>
-              <a class="nav-link" href="/profile" style="width:135px;">{{ user['name'] }}</a>
+        <ul class="navbar-nav w-100 dropdown-left-manual">
+          <li class="nav-item dropdown ml-auto">
+            <a class="nav-link dropdown-toggle dropdown-login" style="width:150px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img width="24" height="24" style="border-radius: 4px;float: left; margin-right: 5px;" src="{{ user['subreddit']['icon_img'] }}">
+              {{ user['name'] }}
+            </a>
+            <div class="dropdown-menu my-lg-0 dropdown-left-manual" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/profile">Profile</a>
+              <a class="dropdown-item" href="/history">History</a>
             </div>
           </li>
         </ul>
@@ -61,12 +68,5 @@
         {% block main %}{% endblock %}
   </main>
 
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
-
 </html>
