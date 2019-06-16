@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}search results - {{ q }}{% endblock %}
+{% block main %}
+<div style="max-width:100%;" class="frame">
+  <div class="frame-1">
+    <div class="frame-2">
+      <div>
+        {% for i in results %}
+        <div class="single-post" tabindex="-1">
+          <div class="votes" style="width:40px;border-left:4px solid transparent">
+            <div class="vote-1 vote-3">
+              <button class="vote-2" aria-label="upvote" aria-pressed="false" data-click-id="upvote">
+                <div class="up-2 up-3" id="minus"><p class="up up-4 up-down">+</p></div>
+              </button>
+              <div class="vote-counts" id="count" style="color:#1A1A1B">{{ human_format(i['data']['ups']) }}</div>
+              <button class="vote-2" id="plus" aria-label="downvote" aria-pressed="false" data-click-id="downvote">
+                <div class="downvote-1 downvote-2"><i class="down icon icon-downvote up-4 up-down"></i></div>
+              </button>
+            </div>
+          </div>
+          <div class="post-content-1 post-content-2">
+            <article class="article-1">
+              <div class="article-2" data-click-id="body">
+                <div class="top-content">
+                  <div class="subr-icon">
+                    <a class="subr-icon-2" data-click-id="subreddit" href="/{{ i['data']['subreddit_name_prefixed'] }}">
+                      {% if i['data']['icon_img']|length %}
+                      <img class="subr-icon-3 subr-icon-4" role="presentation" src="{{ get_subreddit_icon(i['data']['subreddit']) }}"/>
+                      {% else %}
+                      <svg class="icon-00 icon-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" role="presentation">
+                        <path d="M15.8286,15.8998 C15.3466,16.3788 12.6326,15.5598 8.5516,11.4798 C4.4706,7.3968 3.6486,4.6858 4.1316,4.2038 C4.3566,3.9788 4.9286,3.9208 5.9126,4.3518 C5.6166,4.5678 5.3306,4.8008 5.0666,5.0658 C5.0536,5.0798 5.0416,5.0948 5.0266,5.1098 C5.5756,6.4268 6.8946,8.4088 9.2596,10.7728 C11.6206,13.1338 13.6046,14.4538 14.9246,15.0028 C14.9376,14.9898 14.9526,14.9778 14.9666,14.9638 C15.2316,14.6988 15.4646,14.4128 15.6786,14.1178 C16.1096,15.1028 16.0526,15.6748 15.8286,15.8998 M16.7526,11.8998 C17.4066,9.5458 16.8136,6.9138 14.9666,5.0658 C13.6436,3.7438 11.8866,3.0148 10.0166,3.0148 C9.3686,3.0148 8.7356,3.1078 8.1286,3.2768 C5.7306,1.7598 3.9176,1.5898 2.7176,2.7898 C1.4036,4.1028 2.0736,6.1918 3.2866,8.1688 C2.6446,10.5128 3.2276,13.1258 5.0666,14.9638 C6.3886,16.2868 8.1456,17.0148 10.0166,17.0148 C10.6536,17.0148 11.2746,16.9178 11.8736,16.7518 C13.0856,17.4938 14.3406,18.0318 15.4316,18.0318 C16.1156,18.0318 16.7366,17.8198 17.2426,17.3138 C18.4416,16.1138 18.2706,14.2988 16.7526,11.8998">
+                        </path>
+                      </svg>
+                      {% endif %}
+                    </a>
+                  </div>
+                  <div class="top-content-2">
+                    <div class="top-content-3 top-content-4">
+                      <div class="subr">
+                        <a class="subr-a" data-click-id="subreddit" href="{{ i['data']['subreddit_name_prefixed'] }}">{{ i['data']['subreddit_name_prefixed'] }}</a>
+                      </div>
+                      <span class="span-1 span-2" role="presentation">•</span>
+                      <span class="span-3">Posted by</span>
+                      <div>
+                        <a class="author author-1 author-2" href="/user/{{ i['data']['author'] }}/">u/{{ i['data']['author'] }}</a>
+                      </div>
+                      <a class="time-ago" data-click-id="timestamp" href="#" target="_blank" rel="nofollow noopener">{{ time_ago(i['data']['created_utc']) }}</a>
+                    </div>
+                    <div style="display: inline;"></div>
+                    <div class="cont"></div>
+                  </div>
+                </div>
+                <div class="title-1 title-2">
+                  <span class="title-span">
+                    <a data-click-id="body" class="title-a" href="{{ i['data']['permalink'] }}">
+                      <h2 class="title-h2 title-h2-1">{{ i['data']['title'] }}</h2>
+                    </a>
+                  </span>
+                </div>
+                <div class="bottom1">
+                  <div class="bottom2">
+                    <a rel="nofollow" data-click-id="comments" data-test-id="comments-page-link-num-comments" class="comments1 comments2 comments3 comments4" href="{{ i['data']['permalink'] }}">
+                      <i class="icon icon-comment _3ch9jJ0painNf41PmU4F9i _3DVrpDrMM9NLT6TlsTUMxC" role="presentation"></i>
+                      <span class="FHCV02u6Cp2zYL0fhQPsO">{{ human_format(i['data']['num_comments']) }} Comments</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ d_post['title'] }}: {{ d_post['subreddit'] }}{% endblock %}
+
+{% block main %}
+
+{% for i in d_comments %}
+<p>
+{{ i['data']['body'] }}
+</p>
+{% if is_str(i['data']['replies']) == false %}
+
+<p>Reply: {{ i['data']['replies']['data']['children'][0]['data']['body'] }}</p>
+{% endif %}
+{% endfor %}
+{% endblock %}
