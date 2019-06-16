@@ -76,7 +76,7 @@
                     </div>
                   </div>
                   {% elif i['data']['post_hint'] == 'link' %}
-                  <a style="width: 200px;" class="message-link dont-break-out" href="{{ i['data']['url'] }}" rel="noopener noreferrer" target="_blank">{{ i['data']['url'] }}
+                  <a class="message-link dont-break-out" href="{{ i['data']['url'] }}" rel="noopener noreferrer" target="_blank">{{ short_url(i['data']['url']) }}
                     <i class="icon icon-outboundLink _2WV2dTLgPlEXLVEmIexAxf"></i>
                   </a>
                   {% else %}
@@ -90,7 +90,6 @@
                 <div class="bottom1">
                   <div class="bottom2">
                     <a rel="nofollow" data-click-id="comments" data-test-id="comments-page-link-num-comments" class="comments1 comments2 comments3 comments4" href="{{ i['data']['permalink'] }}">
-                      <i class="icon icon-comment _3ch9jJ0painNf41PmU4F9i _3DVrpDrMM9NLT6TlsTUMxC" role="presentation"></i>
                       <span class="FHCV02u6Cp2zYL0fhQPsO">{{ human_format(i['data']['num_comments']) }} Comments</span>
                     </a>
                   </div>
@@ -100,40 +99,6 @@
           </div>
         </div>
         {% endfor %}
-      </div>
-      <div class="container">
-        <div>
-          <div>
-            <div class="">
-              <h1>Reddit font page</h1>
-              {% for i in children %}
-              <h4>{{ i['data']['title'] }}</h4>
-              <p>
-                {{ i['data']['num_comments']}}
-              </p>
-              <p>
-                {{ i['data']['subreddit_name_prefixed'] }}
-              </p>
-              <p>
-                Posted by /u{{ i['data']['author'] }}
-              </p>
-              <p>
-
-              </p>
-              <p>
-                {{ time_ago(i['data']['created_utc']) }}
-              </p>
-              <p>
-                {{ human_format(i['data']['num_comments']) }} comments
-              </p>
-              {% if 'url' in i['data'] %}
-              <img class="preview" style="background-color:#FFFFFF;max-height:512px;margin:0 auto" src="{{ i['data']['url'] }}">
-              {% endif %}
-              <hr />
-              {% endfor %}
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

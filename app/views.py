@@ -33,6 +33,15 @@ def makeGetRequest(api_url):
     return response
 
 
+def get_user():
+    response = makeGetRequest('/api/v1/me/')
+
+    if response.status_code == 200:
+        user = response.json()
+
+    return user
+
+
 def human_format(num):
     magnitude = 0
     if num >= 1000:
@@ -67,6 +76,11 @@ def time_ago(timestamp):
 def is_str(obj):
     return isinstance(obj, str)
 
+def short_url(str):
+    s = str[8:24] + '...'
+    return s
+
+
 def get_subreddit_icon(subreddit):
 
     s = '/r/'+ subreddit +'/about/'
@@ -77,21 +91,37 @@ def get_subreddit_icon(subreddit):
 
     return icon
 
+def format_date(date):
+    ts = dt.utcfromtimestamp(date)
+    return (ts.strftime('%B %d, %Y'))
 
 @app.route("/", methods=["GET"])
 def index():
 
     response = makeGetRequest('/hot')
+    user = get_user()
 
     if response.status_code == 200:
         children = response.json()['data']['children']
 
-    return render_template("index.html", children=children, human_format=human_format, time_ago=time_ago, endsw=endsw, get_subreddit_icon=get_subreddit_icon)
+    return render_template("index.html", children=children,
+                           human_format=human_format, time_ago=time_ago,
+                           endsw=endsw, get_subreddit_icon=get_subreddit_icon,
+                           user=user, short_url=short_url)
 
 
-@app.route("/profile/<username>")
-def profile(username):
-    return render_template("profile.html", name=username)
+@app.route("/profile")
+def profile():
+    user = get_user()
+    s = '/user/' + user['name'] + '/overview'
+    response = makeGetRequest(s)
+
+    if response.status_code == 200:
+        data = response.json()['data']['children']
+
+    return render_template("profile.html", user=user, data=data,
+                           time_ago=time_ago, short_url=short_url,
+                           format_date=format_date)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -99,11 +129,12 @@ def search():
     query = request.form['query']
     q = '/search/?q='+query
     response = makeGetRequest(q)
+    user = get_user()
 
     if response.status_code == 200:
         results = response.json()['data']['children']
 
-    return render_template('search_results.html', results=results, q=query, human_format=human_format, time_ago=time_ago, endsw=endsw, get_subreddit_icon=get_subreddit_icon)
+    return render_template('search_results.html', results=results, q=query, human_format=human_format, time_ago=time_ago, endsw=endsw, get_subreddit_icon=get_subreddit_icon, user=user)
 
 
 

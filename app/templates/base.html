@@ -33,7 +33,7 @@
       <ul class="navbar-nav">
         <li class="nav-item pull-left">
           <div>
-            <a class="nav-link" href="/" style="padding: 14px; padding-left:30px;">Home</a>
+            <a class="nav-link" href="/" style="padding: 14px; padding-left:30px; font-size: 20px;">Home</a>
           </div>
         </li>
         <li class="nav-item" style="padding-left: 330px;">
@@ -46,7 +46,10 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <div>
-              <a class="nav-link" href="/sign_in" style="width:90px;">Sign in</a>
+              <a href="/profile" class="navbar-right">
+                <img width="24" height="24" style="border-radius: 4px;float: left; margin-top: 7px; margin-right: 4px;" src="{{ user['subreddit']['icon_img'] }}">
+              </a>
+              <a class="nav-link" href="/profile" style="width:135px;">{{ user['name'] }}</a>
             </div>
           </li>
         </ul>
